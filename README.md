@@ -6,6 +6,19 @@ when the time is up.
 
 ![Example UI](example-ui.png)
 
+## Background and Credit
+Many years ago, I found [Orzeszek Timer](https://www.orzeszek.org/dev/timer/)
+By Chris Dziemborowicz
+
+It was perfect for me. Enter almost anything and get an Egg timer.
+At one point it failed me in Windows 11.
+
+Today I believe works well, and a newer. He also has a newer https://chris.dziemborowicz.com/apps/hourglass
+
+When it failed, I wrote something myself, as I had become hooked on the default sound I had created, and his simple input method.
+
+I decided to use AI to clean up and buils a beta release of my code. This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+
 ## Requirements
 
 - Windows

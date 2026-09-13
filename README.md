@@ -88,10 +88,12 @@ Delete the file to start fresh.
   name. If the file is missing, Eggy falls back to the system beep.
 - **Unit words**: edit the `UNIT_ALIASES` table near the top of `eggy.py` to
   accept additional spellings.
+- **Icon**: replace `eggy.ico`
 
 ## Files
 
-| File             | Purpose                          |
-| ---------------- | -------------------------------- |
-| `eggy.py`        | The application (single file)    |
-| `sounds/default.wav` | Sound played when time is up   |
+| File             | Purpose                                     |
+| ---------------- | ------------------------------------------- |
+| `eggy.py`        | The application (single file)               |
+| `eggy.ico`       | Window/taskbar icon (white egg on orange)   |
+| `sounds/default.wav` | Sound played when time is up            |

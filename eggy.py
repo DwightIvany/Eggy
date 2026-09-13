@@ -15,6 +15,7 @@ import winsound
 
 APP_TITLE = "Eggy"
 SOUND_FILE = Path(__file__).resolve().parent / "sounds" / "default.wav"
+ICON_FILE = Path(__file__).resolve().parent / "eggy.ico"
 
 
 def settings_path():
@@ -119,6 +120,10 @@ class EggyApp:
     def __init__(self, root):
         self.root = root
         root.title(APP_TITLE)
+        try:
+            root.iconbitmap(str(ICON_FILE))
+        except tk.TclError:
+            pass  # missing or invalid icon: keep the default
         root.configure(bg="#6f6f6f")
         root.geometry("440x220")
         root.minsize(300, 140)

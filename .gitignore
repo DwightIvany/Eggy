@@ -1,0 +1,8 @@
+desktop.ini
+.obsidian/
+.reor/
+.~lock.*#
+*.pyc
+__pycache__/
+*.exe
+*.png

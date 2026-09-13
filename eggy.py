@@ -8,14 +8,23 @@ import json
 import math
 import os
 import re
+import sys
 import time
 import tkinter as tk
 from pathlib import Path
 import winsound
 
 APP_TITLE = "Eggy"
-SOUND_FILE = Path(__file__).resolve().parent / "sounds" / "default.wav"
-ICON_FILE = Path(__file__).resolve().parent / "eggy.ico"
+
+
+def resource_path(*parts):
+    """Path to a bundled resource, from source or a PyInstaller-frozen exe."""
+    base = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+    return base.joinpath(*parts)
+
+
+SOUND_FILE = resource_path("sounds", "default.wav")
+ICON_FILE = resource_path("eggy.ico")
 
 
 def settings_path():

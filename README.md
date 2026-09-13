@@ -5,6 +5,7 @@ Eggy is a simple Windows countdown timer. Type how long to wait, press
 when the time is up.
 
 ![Example UI](example-ui.png)
+<img src="example-ui.png" width="200" alt="Example UI">
 
 ## Background and Credit
 Many years ago, I found [Orzeszek Timer](https://www.orzeszek.org/dev/timer/)

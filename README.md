@@ -65,6 +65,23 @@ seconds if you entered hours. It ends at `0 s` (or `0 m 0 s`, or
 While a countdown is running, type a new duration and press **Enter** to
 restart with the new time.
 
+## Settings
+
+Eggy remembers the last duration you entered. It is saved to a per-user
+settings file:
+
+```
+%APPDATA%\Eggy\settings.json
+```
+
+- On startup, the last duration is already filled in (selected, so typing
+  replaces it).
+- When a countdown finishes and the sound plays, the entry resets to that
+  same duration — running another **5 m** timer is just pressing **Enter**
+  again.
+
+Delete the file to start fresh.
+
 ## Customizing
 
 - **Sound**: replace `sounds/default.wav` with any `.wav` file of the same
@@ -78,4 +95,3 @@ restart with the new time.
 | ---------------- | -------------------------------- |
 | `eggy.py`        | The application (single file)    |
 | `sounds/default.wav` | Sound played when time is up   |
-| `example-ui.png` | Screenshot of the window         |

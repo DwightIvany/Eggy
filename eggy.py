@@ -4,7 +4,9 @@ Type a duration (e.g. "10s", "5m30s", "1 hour 12 m") and press Enter.
 The window counts down and plays sounds/default.wav when time is up.
 """
 
+import json
 import math
+import os
 import re
 import time
 import tkinter as tk
@@ -13,6 +15,37 @@ import winsound
 
 APP_TITLE = "Eggy"
 SOUND_FILE = Path(__file__).resolve().parent / "sounds" / "default.wav"
+
+
+def settings_path():
+    """Per-user settings file: %APPDATA%\\Eggy\\settings.json."""
+    base = os.environ.get("APPDATA") or os.path.expanduser("~")
+    return Path(base) / APP_TITLE / "settings.json"
+
+
+class Settings:
+    """Last-used timer text, persisted so re-running is just Enter."""
+
+    def __init__(self):
+        self.last_timer = ""
+        try:
+            data = json.loads(settings_path().read_text(encoding="utf-8"))
+            if isinstance(data.get("last_timer"), str):
+                self.last_timer = data["last_timer"]
+        except (OSError, ValueError):
+            pass
+
+    def save(self):
+        try:
+            path = settings_path()
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps({"last_timer": self.last_timer}, indent=2),
+                encoding="utf-8",
+            )
+        except OSError:
+            pass
+
 
 # Input mappings: anything the user might type for a unit -> canonical unit.
 # Edit this table to accept additional spellings.
@@ -107,9 +140,14 @@ class EggyApp:
         self.last_shown = None
         self.tick_job = None
         self.flash_job = None
+        self.settings = Settings()
 
         self.entry.bind("<Return>", self.on_enter)
         root.bind("<Escape>", lambda _e: root.destroy())
+
+        if self.settings.last_timer:
+            self.entry.insert(0, self.settings.last_timer)
+            self.entry.select_range(0, "end")
 
     def on_enter(self, _event):
         self.cancel_timer()
@@ -119,6 +157,8 @@ class EggyApp:
             if text.strip():
                 self.flash_invalid()
             return
+        self.settings.last_timer = text
+        self.settings.save()
         total, self.largest_unit = parsed
         self.end_time = time.time() + total
         self.last_shown = None
@@ -139,6 +179,15 @@ class EggyApp:
             self.end_time = None
             self.tick_job = None
             self.play_sound()
+            self.restore_last_timer()
+
+    def restore_last_timer(self):
+        """Put the previous timer text back so re-running is just Enter."""
+        self.entry.config(fg="black")
+        self.entry.delete(0, "end")
+        if self.settings.last_timer:
+            self.entry.insert(0, self.settings.last_timer)
+            self.entry.select_range(0, "end")
 
     def cancel_timer(self):
         self.end_time = None
